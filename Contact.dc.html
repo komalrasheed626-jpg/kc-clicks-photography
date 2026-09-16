@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"></link>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"></link>
+<style>body{margin:0;background:#fdfbf8}</style>
+</helmet>
+<x-import component-from-global-scope="image-slot" from="./image-slot.js" hint-size="1,1" style="width:0;height:0;overflow:hidden;position:absolute"></x-import>
+<div style="font-family:'Poppins',sans-serif;background:#fdfbf8;color:#161310">
+  <dc-import name="Nav" active-page="contact" hint-size="100%,80px"></dc-import>
+
+  <section style="padding:180px 56px 100px;max-width:1280px;margin:0 auto;text-align:center">
+    <div style="font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:#C41E2C;margin-bottom:16px">Contact</div>
+    <h1 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(34px,5vw,58px);margin:0 0 20px">Chaliye Baat Karte Hain</h1>
+    <p style="font-size:15px;color:#5a544c;max-width:480px;margin:0 auto">Apni kahani ke liye humse rabta karein — hum sunne ke liye tayyar hain.</p>
+  </section>
+
+  <section style="max-width:1280px;margin:0 auto;padding:0 56px 140px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start">
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <sc-for list="{{ contacts }}" as="c" hint-placeholder-count="7">
+        <a href="{{ c.href }}" style="display:flex;align-items:center;gap:18px;text-decoration:none;color:#161310;padding:18px 0;border-bottom:1px solid #efe9dc">
+          <div style="width:44px;height:44px;border-radius:50%;background:#161310;color:#E2454C;display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:.02em;flex-shrink:0">{{ c.abbr }}</div>
+          <div>
+            <div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#a39c8e;margin-bottom:2px">{{ c.label }}</div>
+            <div style="font-size:16px">{{ c.value }}</div>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+    <div style="aspect-ratio:4/3;background:#e7e2d8;position:relative;overflow:hidden">
+      <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,#e0dacc,#e0dacc 12px,#eae5d9 12px,#eae5d9 24px)"></div>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:12px;letter-spacing:.05em;color:#8a8272;text-align:center;padding:20px">google map embed — studio location</div>
+    </div>
+  </section>
+
+  <dc-import name="Footer" hint-size="100%,340px"></dc-import>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      contacts: [
+        { abbr: '📞', label: 'Phone', value: '0309 4218402', href: 'tel:03094218402' },
+        { abbr: 'WA', label: 'WhatsApp', value: '0309 4218402', href: 'https://wa.me/923094218402' },
+        { abbr: '✉️', label: 'Email', value: 'komalrasheed626@gmail.com', href: 'mailto:komalrasheed626@gmail.com' },
+        { abbr: 'IG', label: 'Instagram', value: '@kcclicks', href: 'https://instagram.com' },
+        { abbr: 'FB', label: 'Facebook', value: 'KC Clicks', href: 'https://facebook.com' },
+        { abbr: 'TT', label: 'TikTok', value: '@kcclicks', href: 'https://tiktok.com' },
+        { abbr: 'BE', label: 'Behance', value: 'KC Clicks', href: 'https://behance.net' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

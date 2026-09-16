@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"></link>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"></link>
+<style>
+  body{margin:0;background:#fdfbf8}
+  @keyframes kcHeroFade{0%{opacity:0}4%{opacity:1}20%{opacity:1}26%{opacity:0}100%{opacity:0}}
+  @keyframes kcUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes kcRotateSlow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+  @keyframes kcRotateRev{from{transform:rotate(360deg)}to{transform:rotate(0deg)}}
+  @keyframes kcDrift{0%,100%{transform:translate(0,0)}50%{transform:translate(24px,-26px)}}
+  @keyframes kcDrift2{0%,100%{transform:translate(0,0)}50%{transform:translate(-20px,22px)}}
+  @keyframes kcLensPulse{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.08);opacity:1}}
+  @keyframes kcEmerge{from{opacity:0;transform:scale(.4) translateY(14px);filter:blur(16px)}to{opacity:1;transform:scale(1) translateY(0);filter:blur(0)}}
+  @keyframes kcFloatText{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+</style>
+</helmet>
+<x-import component-from-global-scope="image-slot" from="./image-slot.js" hint-size="1,1" style="width:0;height:0;overflow:hidden;position:absolute"></x-import>
+<div style="font-family:'Poppins',sans-serif;background:#fdfbf8;color:#161310">
+  <dc-import name="Nav" active-page="home" hint-size="100%,80px"></dc-import>
+
+  <section onmousemove="{{ onHeroMove }}" style="position:relative;width:100%;height:100vh;overflow:hidden;background:#161310">
+    <div ref="{{ glowRef }}" style="position:absolute;top:0;left:0;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(196,30,44,0.16),transparent 70%);pointer-events:none;z-index:8;transform:translate(-1000px,-1000px);will-change:transform"></div>
+    <div style="position:absolute;top:56px;right:56px;width:130px;height:130px;z-index:6;opacity:.55;pointer-events:none">
+      <div style="position:absolute;inset:0;border:1px solid rgba(196,30,44,0.55);border-radius:50%;animation:kcRotateSlow 42s linear infinite"></div>
+      <div style="position:absolute;inset:20px;border:1px solid rgba(196,30,44,0.4);border-radius:50%;animation:kcRotateRev 30s linear infinite"></div>
+      <div style="position:absolute;inset:40px;border:1px solid rgba(196,30,44,0.75);border-radius:50%"></div>
+      <div style="position:absolute;top:50%;left:50%;width:6px;height:6px;background:#E2454C;border-radius:50%;transform:translate(-50%,-50%)"></div>
+    </div>
+    <sc-for list="{{ heroLayers }}" as="layer" hint-placeholder-count="5">
+      <div style="position:absolute;inset:0;animation:kcHeroFade 25s infinite;animation-delay:{{ layer.delay }};z-index:{{ layer.z }}">
+        <image-slot id="{{ layer.id }}" shape="rect" placeholder="{{ layer.placeholder }}" style="width:100%;height:100%"></image-slot>
+      </div>
+    </sc-for>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,9,7,0.35) 0%,rgba(10,9,7,0.55) 55%,rgba(10,9,7,0.75) 100%);z-index:6;pointer-events:none"></div>
+    <div style="position:relative;z-index:7;height:100%;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;text-align:left;padding:0 24px 0 8vw;animation:kcUp .9s ease-out">
+      <div style="font-size:13px;letter-spacing:.35em;text-transform:uppercase;color:#E2454C;margin-bottom:22px">KC Clicks Photography</div>
+      <h1 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(48px,7vw,108px);line-height:1.05;color:#fdfbf8;margin:0 0 28px;max-width:16ch">Har Lamha Qeemti Hai.</h1>
+      <p style="font-size:17px;line-height:1.9;color:rgba(253,251,248,0.85);max-width:520px;margin:0 0 40px">
+        Har muskurahat... Har aansu... Har rishta... Har yaad...<br/>
+        KC Clicks unhein hamesha ke liye mehfooz karta hai.
+      </p>
+      <a href="Booking.dc.html" style="font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:#C41E2C;padding:18px 40px;text-decoration:none;border-radius:2px">📷 Book Your Shoot</a>
+    </div>
+  </section>
+
+  <section style="position:relative;padding:130px 56px;max-width:1280px;margin:0 auto;overflow:hidden">
+    <div style="position:absolute;top:40px;left:-40px;width:180px;height:180px;border:1px solid rgba(180,25,35,0.3);border-radius:50%;z-index:0;animation:kcDrift 14s ease-in-out infinite"></div>
+    <div style="position:absolute;bottom:20px;right:0;width:110px;height:110px;border:1px solid rgba(180,25,35,0.25);border-radius:50%;z-index:0;animation:kcDrift2 18s ease-in-out infinite"></div>
+    <div style="position:relative;z-index:1">
+      <div style="text-align:center;margin-bottom:72px">
+        <div style="font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:#C41E2C;margin-bottom:16px">Why KC Clicks</div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(32px,4vw,52px);margin:0;animation:kcFloatText 5s ease-in-out infinite">Photography Jo Sirf Dekhi Nahi, Mehsoos Ki Jati Hai</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:#e7e2d8">
+        <sc-for list="{{ whyCards }}" as="card" hint-placeholder-count="4">
+          <div style="background:#fdfbf8;padding:48px 36px;display:flex;flex-direction:column;gap:16px">
+            <div style="font-size:34px">{{ card.icon }}</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px">{{ card.title }}</div>
+            <div style="font-size:14px;line-height:1.8;color:#5a544c">{{ card.body }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="position:relative;background:#161310;color:#fdfbf8;padding:140px 56px;overflow:hidden">
+    <div style="position:absolute;top:50%;left:50%;width:360px;height:360px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle at 38% 35%,rgba(196,30,44,0.28),rgba(180,25,35,0.05) 55%,transparent 72%);box-shadow:inset 0 0 60px rgba(0,0,0,0.4),inset -14px -14px 40px rgba(255,255,255,0.05);border:1px solid rgba(180,25,35,0.25);animation:kcLensPulse 7s ease-in-out infinite;z-index:0;pointer-events:none"></div>
+    <div style="position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center">
+      <div style="font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:#E2454C;margin-bottom:20px">Our Signature</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(46px,8vw,120px);margin:0 0 80px;animation:kcEmerge 1.6s cubic-bezier(.16,1,.3,1) both">Ruk Ja Lamhe.</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px">
+        <sc-for list="{{ signatureShots }}" as="shot" hint-placeholder-count="3">
+          <div>
+            <div style="position:relative;width:100%;aspect-ratio:4/5;margin-bottom:20px">
+              <image-slot id="{{ shot.id }}" shape="rect" placeholder="{{ shot.placeholder }}" style="width:100%;height:100%"></image-slot>
+            </div>
+            <div style="font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:rgba(253,251,248,0.55)">{{ shot.caption }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:140px 56px;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
+    <div>
+      <div style="font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:#C41E2C;margin-bottom:20px">About KC Clicks</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(32px,4vw,48px);line-height:1.15;margin:0 0 28px">Hum Camera Nahi...<br/>Ehsaas Capture Karte Hain.</h2>
+      <p style="font-size:15px;line-height:1.9;color:#5a544c;margin:0 0 36px">KC Clicks sirf photography studio nahi. Yeh un lamhon ka safar hai jo dobara kabhi wapas nahi aate. Har project ko hum ek nayi kahani samajh kar shoot karte hain.</p>
+      <a href="About.dc.html" style="font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:#161310;border-bottom:1px solid #C41E2C;padding-bottom:6px;text-decoration:none">Our Story</a>
+    </div>
+    <div style="aspect-ratio:4/5">
+      <image-slot id="about-teaser" shape="rect" placeholder="Photographer at work" style="width:100%;height:100%"></image-slot>
+    </div>
+  </section>
+
+  <section style="padding:0 56px 140px;max-width:900px;margin:0 auto;text-align:center">
+    <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(30px,4vw,44px);margin:0 0 20px">Apna Lamha Rok Lein.</h2>
+    <p style="font-size:15px;line-height:1.9;color:#5a544c;margin:0 0 36px">Wedding ho ya baby shoot, sunset portrait ho ya corporate event — har kahani ke liye jagah hai.</p>
+    <a href="Booking.dc.html" style="font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:#161310;padding:18px 44px;text-decoration:none;border-radius:2px">Book Your Session</a>
+  </section>
+
+  <dc-import name="Footer" hint-size="100%,340px"></dc-import>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  glowRef = React.createRef();
+
+  onHeroMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    if (this.glowRef.current) this.glowRef.current.style.transform = `translate(${x - 210}px, ${y - 210}px)`;
+  };
+
+  renderVals() {
+    return {
+      glowRef: this.glowRef,
+      onHeroMove: this.onHeroMove,
+      heroLayers: [
+        { id: 'hero-wedding', placeholder: 'Wedding couple', delay: '0s', z: 1 },
+        { id: 'hero-mountain', placeholder: 'Mountain landscape', delay: '5s', z: 2 },
+        { id: 'hero-bride', placeholder: 'Bride close-up', delay: '10s', z: 3 },
+        { id: 'hero-baby', placeholder: 'Baby photography', delay: '15s', z: 4 },
+        { id: 'hero-sunset', placeholder: 'Sunset portrait', delay: '20s', z: 5 },
+      ],
+      whyCards: [
+        { icon: '❤️', title: 'Dil se Photography', body: 'Har photo sirf click nahi... mehsoos ki jati hai.' },
+        { icon: '🎨', title: 'Creative Editing', body: 'Natural Colors, Premium Retouching, Luxury Look.' },
+        { icon: '📍', title: 'On Location', body: 'Wedding, Events, Travel, Portrait, Product.' },
+        { icon: '⭐', title: '100% Client Satisfaction', body: 'Hamari tasveer sirf image nahi... Yaad ban jati hai.' },
+      ],
+      signatureShots: [
+        { id: 'sig-bride', placeholder: 'Bride smile', caption: 'Bride Smile' },
+        { id: 'sig-baby', placeholder: 'Baby laugh', caption: 'Baby Laugh' },
+        { id: 'sig-parents', placeholder: 'Parents hug', caption: 'Parents Hug' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

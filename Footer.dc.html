@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<footer style="background:#161310;color:#f2ede4;font-family:'Poppins',sans-serif;padding:80px 56px 40px">
+  <div style="max-width:1200px;margin:0 auto">
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:30px;font-weight:500;text-align:center;color:#e7ddc9;margin:0 0 56px">"Every picture has a heartbeat."</p>
+    <div style="display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.12);padding-top:40px">
+      <div style="min-width:200px;display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="background:#fff;padding:6px;border-radius:6px;display:flex">
+            <img src="./assets/kc-logo.png" alt="KC Clicks logo" style="height:32px;width:auto;display:block"/>
+          </div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#fff">KC Clicks</div>
+        </div>
+        <div style="font-size:13px;letter-spacing:.05em;color:#C41E2C;text-transform:uppercase">Ruk Ja Lamhe.</div>
+      </div>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start">
+        <sc-for list="{{ socials }}" as="s" hint-placeholder-count="6">
+          <a href="{{ s.href }}" style="width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;color:#f2ede4;text-decoration:none;font-size:12px;letter-spacing:.02em" style-hover="border-color:#C41E2C;color:#C41E2C">{{ s.abbr }}</a>
+        </sc-for>
+      </div>
+      <div style="font-size:13px;color:rgba(242,237,228,0.55);min-width:180px;text-align:right">
+        <div>03094218402</div>
+        <div>komalrasheed626@gmail.com</div>
+        <div style="margin-top:14px;color:rgba(242,237,228,0.35)">© 2026 KC Clicks. All rights reserved.</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      socials: [
+        { abbr: 'IG', href: 'https://instagram.com' },
+        { abbr: 'FB', href: 'https://facebook.com' },
+        { abbr: 'WA', href: 'https://wa.me/923094218402' },
+        { abbr: 'TT', href: 'https://tiktok.com' },
+        { abbr: 'BE', href: 'https://behance.net' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"></link>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"></link>
+<style>body{margin:0;background:#fdfbf8}</style>
+</helmet>
+<x-import component-from-global-scope="image-slot" from="./image-slot.js" hint-size="1,1" style="width:0;height:0;overflow:hidden;position:absolute"></x-import>
+<div style="font-family:'Poppins',sans-serif;background:#fdfbf8;color:#161310">
+  <dc-import name="Nav" active-page="about" hint-size="100%,80px"></dc-import>
+
+  <section style="padding:180px 56px 120px;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
+    <div>
+      <div style="font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:#C41E2C;margin-bottom:20px">About Us</div>
+      <h1 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(34px,4.5vw,54px);line-height:1.15;margin:0 0 30px">Hum Camera Nahi...<br/>Ehsaas Capture Karte Hain.</h1>
+      <p style="font-size:15px;line-height:1.9;color:#5a544c;margin:0 0 18px">KC Clicks sirf photography studio nahi. Yeh un lamhon ka safar hai jo dobara kabhi wapas nahi aate.</p>
+      <p style="font-size:15px;line-height:1.9;color:#5a544c;margin:0 0 18px">Har project ko hum ek nayi kahani samajh kar shoot karte hain. Hamara maqsad sirf achi tasveer lena nahi...</p>
+      <p style="font-size:15px;line-height:1.9;color:#5a544c;margin:0">Balke har frame mein woh ehsaas mehfooz karna hai jo dekhne wala saalon baad bhi mehsoos kar sake.</p>
+    </div>
+    <div style="aspect-ratio:4/5">
+      <image-slot id="about-hero" shape="rect" placeholder="Founder shooting a portrait" style="width:100%;height:100%"></image-slot>
+    </div>
+  </section>
+
+  <section id="services" style="padding:0 56px 140px;max-width:1280px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:64px">
+      <div style="font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:#C41E2C;margin-bottom:16px">Services</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(32px,4vw,48px);margin:0">Har Occasion Ke Liye Ek Kahani</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px">
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="8">
+        <div style="position:relative;aspect-ratio:3/4;overflow:hidden;border-radius:2px">
+          <image-slot id="{{ s.id }}" shape="rect" placeholder="{{ s.placeholder }}" style="width:100%;height:100%"></image-slot>
+          <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,9,7,0.75) 0%,rgba(10,9,7,0) 55%);pointer-events:none"></div>
+          <div style="position:absolute;left:20px;bottom:20px;color:#fff;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:24px">{{ s.name }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="background:#161310;color:#fdfbf8;padding:140px 56px">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="text-align:center;margin-bottom:64px">
+        <div style="font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:#E2454C;margin-bottom:16px">Packages</div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(32px,4vw,48px);margin:0">Apni Kahani Ke Liye Package Chunein</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:rgba(255,255,255,0.14)">
+        <sc-for list="{{ packages }}" as="pk" hint-placeholder-count="3">
+          <div style="background:#161310;padding:48px 36px;display:flex;flex-direction:column;gap:16px">
+            <div style="font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:#E2454C">{{ pk.name }}</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:38px">{{ pk.price }}</div>
+            <sc-for list="{{ pk.features }}" as="feat" hint-placeholder-count="4">
+              <div style="font-size:14px;color:rgba(253,251,248,0.75);padding:8px 0;border-top:1px solid rgba(255,255,255,0.08)">{{ feat }}</div>
+            </sc-for>
+            <a href="Booking.dc.html" style="margin-top:12px;text-align:center;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:#C41E2C;padding:14px;text-decoration:none;border-radius:2px">Choose Package</a>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:140px 56px;max-width:1000px;margin:0 auto;text-align:center">
+    <div style="font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:#C41E2C;margin-bottom:16px">Testimonials</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(32px,4vw,44px);margin:0 0 64px">Client Kya Kehte Hain</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:40px;text-align:left">
+      <sc-for list="{{ testimonials }}" as="t" hint-placeholder-count="3">
+        <div>
+          <div style="color:#C41E2C;font-size:15px;margin-bottom:16px">★★★★★</div>
+          <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;line-height:1.6;margin:0 0 20px;color:#2b271f">"{{ t.quote }}"</p>
+          <div style="font-size:13px;letter-spacing:.05em;color:#5a544c">{{ t.name }} — {{ t.role }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <dc-import name="Footer" hint-size="100%,340px"></dc-import>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      services: [
+        { id: 'svc-wedding', name: 'Wedding', placeholder: 'Wedding shoot' },
+        { id: 'svc-portrait', name: 'Portrait', placeholder: 'Portrait shoot' },
+        { id: 'svc-events', name: 'Events', placeholder: 'Event coverage' },
+        { id: 'svc-corporate', name: 'Corporate', placeholder: 'Corporate shoot' },
+        { id: 'svc-product', name: 'Product', placeholder: 'Product shoot' },
+        { id: 'svc-travel', name: 'Travel', placeholder: 'Travel shoot' },
+        { id: 'svc-fashion', name: 'Fashion', placeholder: 'Fashion shoot' },
+        { id: 'svc-drone', name: 'Drone', placeholder: 'Drone aerial shot' },
+      ],
+      packages: [
+        { name: 'Essential', price: 'Rs 25,000', features: ['3 hour coverage', '1 photographer', '50 edited photos', 'Online gallery'] },
+        { name: 'Signature', price: 'Rs 55,000', features: ['Full day coverage', '2 photographers', '250 edited photos', 'Premium album'] },
+        { name: 'Luxury', price: 'Rs 95,000', features: ['2 day coverage', 'Photo + video team', 'Unlimited edited photos', 'Cinematic film + album'] },
+      ],
+      testimonials: [
+        { quote: 'KC Clicks ne humari shaadi ke lamhe hamesha ke liye zinda kar diye.', name: 'Ayesha & Bilal', role: 'Wedding Client' },
+        { quote: 'Itna natural aur emotional kaam maine pehle nahi dekha.', name: 'Fatima K.', role: 'Portrait Client' },
+        { quote: 'Professional team, behtareen editing, waqt par delivery.', name: 'Zainab R.', role: 'Corporate Client' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

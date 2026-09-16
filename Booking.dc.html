@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"></link>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"></link>
+<style>body{margin:0;background:#fdfbf8} input::placeholder,textarea::placeholder{color:#a39c8e}</style>
+</helmet>
+<div style="font-family:'Poppins',sans-serif;background:#fdfbf8;color:#161310;min-height:100vh">
+  <dc-import name="Nav" active-page="services" hint-size="100%,80px"></dc-import>
+
+  <section style="padding:180px 24px 120px;max-width:760px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:56px">
+      <div style="font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:#C41E2C;margin-bottom:16px">Booking</div>
+      <h1 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(32px,5vw,52px);margin:0 0 20px">Apna Lamha Book Karein</h1>
+      <p style="font-size:15px;color:#5a544c;margin:0">Form bharein, hum 24 ghanton mein rabta karenge.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+      <label style="display:flex;flex-direction:column;gap:8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5a544c">Name
+        <input value="{{ form.name }}" onchange="{{ set.name }}" placeholder="Your full name" style="font-family:'Poppins',sans-serif;font-size:15px;padding:14px 16px;border:1px solid #e0dacc;border-radius:2px;background:#fff;color:#161310" />
+      </label>
+      <label style="display:flex;flex-direction:column;gap:8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5a544c">Phone
+        <input value="{{ form.phone }}" onchange="{{ set.phone }}" placeholder="03xx-xxxxxxx" style="font-family:'Poppins',sans-serif;font-size:15px;padding:14px 16px;border:1px solid #e0dacc;border-radius:2px;background:#fff;color:#161310" />
+      </label>
+      <label style="display:flex;flex-direction:column;gap:8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5a544c">Email
+        <input value="{{ form.email }}" onchange="{{ set.email }}" placeholder="you@email.com" style="font-family:'Poppins',sans-serif;font-size:15px;padding:14px 16px;border:1px solid #e0dacc;border-radius:2px;background:#fff;color:#161310" />
+      </label>
+      <label style="display:flex;flex-direction:column;gap:8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5a544c">Preferred Date
+        <input type="date" value="{{ form.date }}" onchange="{{ set.date }}" style="font-family:'Poppins',sans-serif;font-size:15px;padding:14px 16px;border:1px solid #e0dacc;border-radius:2px;background:#fff;color:#161310" />
+      </label>
+      <label style="display:flex;flex-direction:column;gap:8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5a544c">Shoot Type
+        <select value="{{ form.shootType }}" onchange="{{ set.shootType }}" style="font-family:'Poppins',sans-serif;font-size:15px;padding:14px 16px;border:1px solid #e0dacc;border-radius:2px;background:#fff;color:#161310">
+          <sc-for list="{{ shootTypes }}" as="opt" hint-placeholder-count="8">
+            <option value="{{ opt }}">{{ opt }}</option>
+          </sc-for>
+        </select>
+      </label>
+      <label style="display:flex;flex-direction:column;gap:8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5a544c">Location
+        <input value="{{ form.location }}" onchange="{{ set.location }}" placeholder="City / venue" style="font-family:'Poppins',sans-serif;font-size:15px;padding:14px 16px;border:1px solid #e0dacc;border-radius:2px;background:#fff;color:#161310" />
+      </label>
+      <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5a544c">Budget
+        <input value="{{ form.budget }}" onchange="{{ set.budget }}" placeholder="Approx budget (PKR)" style="font-family:'Poppins',sans-serif;font-size:15px;padding:14px 16px;border:1px solid #e0dacc;border-radius:2px;background:#fff;color:#161310" />
+      </label>
+      <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5a544c">Message
+        <textarea value="{{ form.message }}" onchange="{{ set.message }}" placeholder="Apni kahani hume batayein..." rows="4" style="font-family:'Poppins',sans-serif;font-size:15px;padding:14px 16px;border:1px solid #e0dacc;border-radius:2px;background:#fff;color:#161310;resize:vertical"></textarea>
+      </label>
+    </div>
+
+    <button onclick="{{ submit }}" style="width:100%;margin-top:36px;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:#161310;padding:18px;border:none;border-radius:2px;cursor:pointer">Book My Session</button>
+    <p style="text-align:center;font-size:12px;color:#a39c8e;margin-top:16px">Submit karne par aapka default email app khulega — komalrasheed626@gmail.com par bhejne ke liye.</p>
+  </section>
+
+  <dc-import name="Footer" hint-size="100%,340px"></dc-import>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const SHOOT_TYPES = ['Wedding','Portrait','Events','Corporate','Product','Travel','Fashion','Drone'];
+
+class Component extends DCLogic {
+  state = { form: { name: '', phone: '', email: '', date: '', shootType: SHOOT_TYPES[0], location: '', budget: '', message: '' } };
+
+  updateField(key, value) {
+    this.setState(s => ({ form: { ...s.form, [key]: value } }));
+  }
+
+  renderVals() {
+    const f = this.state.form;
+    const set = {};
+    Object.keys(f).forEach(k => { set[k] = (e) => this.updateField(k, e.target.value); });
+    const submit = () => {
+      const body = [
+        `Name: ${f.name}`, `Phone: ${f.phone}`, `Email: ${f.email}`, `Date: ${f.date}`,
+        `Shoot Type: ${f.shootType}`, `Location: ${f.location}`, `Budget: ${f.budget}`, `Message: ${f.message}`,
+      ].join('\n');
+      window.location.href = `mailto:komalrasheed626@gmail.com?subject=${encodeURIComponent('KC Clicks Booking — ' + f.shootType)}&body=${encodeURIComponent(body)}`;
+    };
+    return { form: f, set, shootTypes: SHOOT_TYPES, submit };
+  }
+}
+</script>
+</body>
+</html>

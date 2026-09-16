@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"></link>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"></link>
+<style>body{margin:0;background:#fdfbf8}</style>
+</helmet>
+<x-import component-from-global-scope="image-slot" from="./image-slot.js" hint-size="1,1" style="width:0;height:0;overflow:hidden;position:absolute"></x-import>
+<div style="font-family:'Poppins',sans-serif;background:#fdfbf8;color:#161310;min-height:100vh">
+  <dc-import name="Nav" active-page="portfolio" hint-size="100%,80px"></dc-import>
+
+  <section style="padding:180px 56px 40px;max-width:1280px;margin:0 auto;text-align:center">
+    <div style="font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:#C41E2C;margin-bottom:16px">Portfolio</div>
+    <h1 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(36px,5vw,64px);margin:0 0 20px">Kahaniyan Jo Tasveeron Mein Zinda Hain</h1>
+    <p style="font-size:15px;color:#5a544c;max-width:520px;margin:0 auto">Har frame ek yaad hai. Category chuniye aur dekhen.</p>
+  </section>
+
+  <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:0 24px 60px">
+    <sc-for list="{{ filters }}" as="f" hint-placeholder-count="9">
+      <button onclick="{{ f.onClick }}" style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:10px 20px;border-radius:20px;border:1px solid {{ f.border }};background:{{ f.bg }};color:{{ f.color }};cursor:pointer;font-family:'Poppins',sans-serif">{{ f.label }}</button>
+    </sc-for>
+  </div>
+
+  <section style="max-width:1400px;margin:0 auto;padding:0 24px 140px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:6px">
+      <sc-for list="{{ items }}" as="item" hint-placeholder-count="12">
+        <div onclick="{{ item.open }}" style="position:relative;aspect-ratio:4/5;cursor:pointer;overflow:hidden;background:#e7e2d8" style-hover="">
+          <div style="width:100%;height:100%;transition:transform .5s ease" style-hover="transform:scale(1.06)">
+            <image-slot id="{{ item.id }}" shape="rect" placeholder="{{ item.placeholder }}" style="width:100%;height:100%"></image-slot>
+          </div>
+          <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,9,7,0.55) 0%,rgba(10,9,7,0) 45%);opacity:0;transition:opacity .35s;pointer-events:none" style-hover="opacity:1"></div>
+          <div style="position:absolute;left:14px;bottom:12px;color:#fff;font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:0;transition:opacity .35s;pointer-events:none" style-hover="opacity:1">{{ item.category }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <sc-if value="{{ lightbox }}" hint-placeholder-val="{{ false }}">
+    <div onclick="{{ closeLightbox }}" style="position:fixed;inset:0;background:rgba(10,9,7,0.92);z-index:200;display:flex;align-items:center;justify-content:center;padding:40px">
+      <div onclick="{{ stopProp }}" style="max-width:960px;width:100%;display:grid;grid-template-columns:1fr;gap:20px">
+        <div style="width:100%;height:min(70vh,700px)">
+          <image-slot id="{{ lightbox.id }}" shape="rect" placeholder="{{ lightbox.placeholder }}" style="width:100%;height:100%"></image-slot>
+        </div>
+        <div style="display:flex;justify-content:space-between;color:#f2ede4;font-size:13px;letter-spacing:.05em">
+          <span>{{ lightbox.client }} — {{ lightbox.location }}</span>
+          <span style="color:rgba(242,237,228,0.55)">{{ lightbox.camera }}</span>
+        </div>
+      </div>
+      <button onclick="{{ closeLightbox }}" style="position:absolute;top:32px;right:40px;background:none;border:none;color:#f2ede4;font-size:28px;cursor:pointer">×</button>
+    </div>
+  </sc-if>
+
+  <dc-import name="Footer" hint-size="100%,340px"></dc-import>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const CATS = ['Wedding','Portraits','Events','Nature','Travel','Fashion','Kids','Product'];
+const NAMES = ['Ayesha & Bilal','Fatima K.','Corporate Event','Northern Trails','Zainab R.','Studio Look','Little Ali','Product Line'];
+const LOCS = ['Lahore','Karachi','Islamabad','Hunza Valley','Multan','Faisalabad','Peshawar','Sialkot'];
+const CAMS = ['Sony A7IV','Canon R5','Nikon Z8','Sony A7IV','Canon R5','Fujifilm X-T5','Nikon Z8','Canon R5'];
+
+class Component extends DCLogic {
+  state = { activeCat: 'All', lightboxId: null };
+
+  buildItems() {
+    const items = [];
+    for (let i = 0; i < 24; i++) {
+      const ci = i % CATS.length;
+      items.push({
+        id: `p-${i}`,
+        category: CATS[ci],
+        placeholder: `${CATS[ci]} photo`,
+        client: NAMES[ci],
+        location: LOCS[ci],
+        camera: CAMS[ci],
+      });
+    }
+    return items;
+  }
+
+  renderVals() {
+    const all = this.buildItems();
+    const filtered = this.state.activeCat === 'All' ? all : all.filter(i => i.category === this.state.activeCat);
+    const filters = ['All', ...CATS].map(c => ({
+      label: c,
+      border: this.state.activeCat === c ? '#C41E2C' : '#d8d2c6',
+      bg: this.state.activeCat === c ? '#161310' : 'transparent',
+      color: this.state.activeCat === c ? '#fff' : '#5a544c',
+      onClick: () => this.setState({ activeCat: c }),
+    }));
+    const lb = this.state.lightboxId ? all.find(i => i.id === this.state.lightboxId) : null;
+    return {
+      filters,
+      items: filtered.map(i => ({ ...i, open: () => this.setState({ lightboxId: i.id }) })),
+      lightbox: lb,
+      closeLightbox: () => this.setState({ lightboxId: null }),
+      stopProp: (e) => e.stopPropagation(),
+    };
+  }
+}
+</script>
+</body>
+</html>
